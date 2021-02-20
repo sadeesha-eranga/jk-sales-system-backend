@@ -11,4 +11,8 @@ public class ApplicationConstants {
         public static final String USER_NOT_FOUND = "User not found!";
     }
 
+    public static final class Invalid {
+        public static final String INVALID_USERNAME_PASSWORD = "Invalid username or password";
+    }
+
 }

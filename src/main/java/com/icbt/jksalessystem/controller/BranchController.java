@@ -9,6 +9,7 @@ import com.icbt.jksalessystem.service.BranchService;
 import com.icbt.jksalessystem.service.BranchUserService;
 import com.icbt.jksalessystem.util.JwtUtil;
 import lombok.extern.log4j.Log4j2;
+import org.bouncycastle.asn1.esf.SPuri;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -50,6 +51,20 @@ public class BranchController {
         log.info("createBranch: {}", reqBody);
         branchService.saveBranch(reqBody);
         return ResponseEntity.ok(new CommonResponseDTO(HttpStatus.CREATED.value(), "Branch created!"));
+    }
+
+    @PutMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<CommonResponseDTO> updateBranch(@Valid @RequestBody BranchRequestDTO reqBody) {
+        log.info("updateBranch: {}", reqBody);
+        branchService.updateBranch(reqBody);
+        return ResponseEntity.ok(new CommonResponseDTO(HttpStatus.OK.value(), "Branch updated!"));
+    }
+
+    @DeleteMapping(value = "/{branchId}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<CommonResponseDTO> deleteBranch(@PathVariable Integer branchId) {
+        log.info("deleteBranch: {}", branchId);
+        branchService.deleteBranch(branchId);
+        return ResponseEntity.ok(new CommonResponseDTO(HttpStatus.OK.value(), "Branch deleted!"));
     }
 
     @PostMapping(value = "/users/login", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)

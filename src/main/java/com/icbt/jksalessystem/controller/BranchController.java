@@ -1,8 +1,10 @@
 package com.icbt.jksalessystem.controller;
 
 import com.icbt.jksalessystem.exception.CustomAuthenticationException;
-import com.icbt.jksalessystem.model.LoginRequestDTO;
-import com.icbt.jksalessystem.model.LoginResponseDTO;
+import com.icbt.jksalessystem.model.request.BranchRequestDTO;
+import com.icbt.jksalessystem.model.response.CommonResponseDTO;
+import com.icbt.jksalessystem.model.request.LoginRequestDTO;
+import com.icbt.jksalessystem.model.response.LoginResponseDTO;
 import com.icbt.jksalessystem.service.BranchService;
 import com.icbt.jksalessystem.service.BranchUserService;
 import com.icbt.jksalessystem.util.JwtUtil;
@@ -16,6 +18,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 
 import static com.icbt.jksalessystem.util.ApplicationConstants.Invalid.INVALID_USERNAME_PASSWORD;
@@ -40,6 +43,13 @@ public class BranchController {
         this.branchService = branchService;
         this.branchUserService = branchUserService;
         this.authenticationManager = authenticationManager;
+    }
+
+    @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<CommonResponseDTO> createBranch(@Valid @RequestBody BranchRequestDTO reqBody) {
+        log.info("createBranch: {}", reqBody);
+        branchService.saveBranch(reqBody);
+        return ResponseEntity.ok(new CommonResponseDTO(HttpStatus.CREATED.value(), "Branch created!"));
     }
 
     @PostMapping(value = "/users/login", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)

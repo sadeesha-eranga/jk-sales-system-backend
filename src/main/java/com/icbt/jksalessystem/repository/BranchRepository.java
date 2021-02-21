@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Date: 2021-02-20
  */
 public interface BranchRepository extends JpaRepository<Branch, Integer> {
+
+    boolean existsByEmail(String email);
 }

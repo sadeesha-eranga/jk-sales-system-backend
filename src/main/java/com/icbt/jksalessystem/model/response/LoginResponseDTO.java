@@ -1,4 +1,4 @@
-package com.icbt.jksalessystem.model;
+package com.icbt.jksalessystem.model.response;
 
 import lombok.*;
 

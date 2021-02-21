@@ -39,4 +39,10 @@ public class Branch {
 
     @OneToMany(mappedBy = "branch")
     private List<BranchUser> users;
+
+    public Branch(String name, BranchType type, String email) {
+        this.name = name;
+        this.type = type;
+        this.email = email;
+    }
 }

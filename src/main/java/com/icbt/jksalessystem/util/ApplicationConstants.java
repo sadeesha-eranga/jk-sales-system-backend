@@ -15,4 +15,8 @@ public class ApplicationConstants {
         public static final String INVALID_USERNAME_PASSWORD = "Invalid username or password";
     }
 
+    public static final class AlreadyExists {
+        public static final String BRANCH_EXISTS_WITH_EMAIL = "This email already in use";
+    }
+
 }

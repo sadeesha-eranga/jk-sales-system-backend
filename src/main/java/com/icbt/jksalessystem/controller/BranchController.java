@@ -1,7 +1,11 @@
 package com.icbt.jksalessystem.controller;
 
 import com.icbt.jksalessystem.exception.CustomAuthenticationException;
+import com.icbt.jksalessystem.model.BranchDTO;
+import com.icbt.jksalessystem.model.BranchFullDTO;
 import com.icbt.jksalessystem.model.request.BranchRequestDTO;
+import com.icbt.jksalessystem.model.response.BranchListResponseDTO;
+import com.icbt.jksalessystem.model.response.BranchResponseDTO;
 import com.icbt.jksalessystem.model.response.CommonResponseDTO;
 import com.icbt.jksalessystem.model.request.LoginRequestDTO;
 import com.icbt.jksalessystem.model.response.LoginResponseDTO;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.icbt.jksalessystem.util.ApplicationConstants.Invalid.INVALID_USERNAME_PASSWORD;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -65,6 +70,20 @@ public class BranchController {
         log.info("deleteBranch: {}", branchId);
         branchService.deleteBranch(branchId);
         return ResponseEntity.ok(new CommonResponseDTO(HttpStatus.OK.value(), "Branch deleted!"));
+    }
+
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<BranchListResponseDTO> getAllBranches() {
+        log.info("getAllBranches");
+        List<BranchDTO> allBranches = branchService.getAllBranches();
+        return ResponseEntity.ok(new BranchListResponseDTO(HttpStatus.OK.value(), allBranches));
+    }
+
+    @GetMapping(value = "/{branchId}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<BranchResponseDTO> searchBranch(@PathVariable int branchId) {
+        log.info("searchBranch: {}", branchId);
+        BranchFullDTO branch = branchService.searchBranch(branchId);
+        return ResponseEntity.ok(new BranchResponseDTO(HttpStatus.OK.value(), branch));
     }
 
     @PostMapping(value = "/users/login", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)

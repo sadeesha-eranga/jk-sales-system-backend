@@ -1,7 +1,10 @@
 package com.icbt.jksalessystem.service;
 
 import com.icbt.jksalessystem.model.BranchDTO;
+import com.icbt.jksalessystem.model.BranchFullDTO;
 import com.icbt.jksalessystem.model.request.BranchRequestDTO;
+
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,4 +18,8 @@ public interface BranchService {
     BranchDTO updateBranch(BranchRequestDTO requestDTO);
 
     boolean deleteBranch(Integer branchId);
+
+    List<BranchDTO> getAllBranches();
+
+    BranchFullDTO searchBranch(Integer branchId);
 }

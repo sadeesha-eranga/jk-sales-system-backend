@@ -2,6 +2,7 @@ package com.icbt.jksalessystem.service;
 
 import com.icbt.jksalessystem.JkSalesSystemApplication;
 import com.icbt.jksalessystem.model.BranchDTO;
+import com.icbt.jksalessystem.model.BranchFullDTO;
 import com.icbt.jksalessystem.model.request.BranchRequestDTO;
 import com.icbt.jksalessystem.repository.BranchRepository;
 import com.icbt.jksalessystem.service.impl.BranchServiceImpl;
@@ -14,6 +15,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,7 +34,7 @@ class BranchServiceTest {
     }
 
     @Test
-    void testSaveBranch() {
+    void saveBranch() {
         BranchRequestDTO testBranch = new BranchRequestDTO("Branch name", "sadeeshae@ceyentra.com");
         BranchDTO savedBranch = branchService.saveBranch(testBranch);
 
@@ -62,5 +65,20 @@ class BranchServiceTest {
         boolean result = branchService.deleteBranch(branchId);
 
         assertTrue(result);
+    }
+
+
+    @Test
+    void getAllBranches() {
+        List<BranchDTO> allBranches = branchService.getAllBranches();
+        assertTrue(allBranches.size() > 0);
+    }
+
+    @Test
+    void searchBranch() {
+        int branchId = 1;
+        BranchFullDTO foundBranch = branchService.searchBranch(branchId);
+        assertNotNull(foundBranch);
+        assertEquals(branchId, foundBranch.getId());
     }
 }

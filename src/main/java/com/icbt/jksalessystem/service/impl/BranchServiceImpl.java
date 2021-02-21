@@ -6,6 +6,7 @@ import com.icbt.jksalessystem.enums.BranchStatus;
 import com.icbt.jksalessystem.enums.BranchType;
 import com.icbt.jksalessystem.exception.CustomServiceException;
 import com.icbt.jksalessystem.model.BranchDTO;
+import com.icbt.jksalessystem.model.BranchFullDTO;
 import com.icbt.jksalessystem.model.request.BranchRequestDTO;
 import com.icbt.jksalessystem.model.request.BranchUserRequestDTO;
 import com.icbt.jksalessystem.repository.BranchRepository;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.icbt.jksalessystem.util.ApplicationConstants.AlreadyExists.BRANCH_EXISTS_WITH_EMAIL;
 import static com.icbt.jksalessystem.util.ApplicationConstants.NotFound.BRANCH_NOT_FOUND;
@@ -77,5 +79,19 @@ public class BranchServiceImpl implements BranchService {
         Branch inactivatedBranch = branchRepository.save(branch);
         log.info("Branch deleted: {}", inactivatedBranch);
         return true;
+    }
+
+    @Override
+    public List<BranchDTO> getAllBranches() {
+        return branchRepository.findAll().stream()
+                .map(branch -> modelMapper.map(branch, BranchDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public BranchFullDTO searchBranch(Integer branchId) {
+        Branch branch = branchRepository.findById(branchId)
+                .orElseThrow(() -> new CustomServiceException(HttpStatus.NOT_FOUND.value(), BRANCH_NOT_FOUND));
+        return modelMapper.map(branch, BranchFullDTO.class);
     }
 }

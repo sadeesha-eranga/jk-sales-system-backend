@@ -4,6 +4,7 @@ import com.icbt.jksalessystem.exception.CustomAuthenticationException;
 import com.icbt.jksalessystem.model.BranchDTO;
 import com.icbt.jksalessystem.model.BranchFullDTO;
 import com.icbt.jksalessystem.model.request.BranchRequestDTO;
+import com.icbt.jksalessystem.model.request.BranchUserRequestDTO;
 import com.icbt.jksalessystem.model.response.BranchListResponseDTO;
 import com.icbt.jksalessystem.model.response.BranchResponseDTO;
 import com.icbt.jksalessystem.model.response.CommonResponseDTO;
@@ -13,7 +14,6 @@ import com.icbt.jksalessystem.service.BranchService;
 import com.icbt.jksalessystem.service.BranchUserService;
 import com.icbt.jksalessystem.util.JwtUtil;
 import lombok.extern.log4j.Log4j2;
-import org.bouncycastle.asn1.esf.SPuri;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -99,5 +99,12 @@ public class BranchController {
             log.info("Authentication failed: {}", reqBody.getUsername());
             throw new CustomAuthenticationException(HttpStatus.UNAUTHORIZED.value(), INVALID_USERNAME_PASSWORD);
         }
+    }
+
+    @PostMapping(value = "/users/add", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<CommonResponseDTO> addUserToBranch(@Valid @RequestBody BranchUserRequestDTO reqBody) {
+        log.info("addUserToBranch: {}", reqBody);
+        branchUserService.createBranchUser(reqBody);
+        return ResponseEntity.ok(new CommonResponseDTO(HttpStatus.OK.value(), "Branch user created!"));
     }
 }

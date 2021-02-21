@@ -19,6 +19,7 @@ import javax.validation.constraints.NotNull;
 @ToString
 public class BranchRequestDTO {
 
+    private Integer id;
     @NotNull(message = "Name cannot be null")
     @NotEmpty(message = "Name cannot be empty")
     private String name;
@@ -26,4 +27,9 @@ public class BranchRequestDTO {
     @NotEmpty(message = "Email cannot be empty")
     @Email(message = "Please add a valid email")
     private String email;
+
+    public BranchRequestDTO(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
 }

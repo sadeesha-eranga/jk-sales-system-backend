@@ -15,8 +15,13 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @ToString
-public class LoginRequestDTO {
+public class BranchUserRequestDTO {
 
+    @NotNull(message = "Branch ID cannot be null")
+    private Integer branchId;
+    @NotNull(message = "Name cannot be null")
+    @NotEmpty(message = "Name cannot be empty")
+    private String name;
     @NotNull(message = "Username cannot be null")
     @NotEmpty(message = "Username cannot be empty")
     private String username;

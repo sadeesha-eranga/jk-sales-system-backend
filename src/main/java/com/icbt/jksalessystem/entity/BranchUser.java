@@ -46,4 +46,11 @@ public class BranchUser {
         this.updatedAt = branchUser.updatedAt;
         this.branch = branchUser.branch;
     }
+
+    public BranchUser(String name, String username, String password, Branch branch) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.branch = branch;
+    }
 }

@@ -1,5 +1,6 @@
 package com.icbt.jksalessystem.entity;
 
+import com.icbt.jksalessystem.enums.BranchStatus;
 import com.icbt.jksalessystem.enums.BranchType;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -31,6 +32,8 @@ public class Branch {
     private BranchType type;
     @Column(nullable = false, unique = true)
     private String email;
+    @Enumerated(EnumType.STRING)
+    private BranchStatus status;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -40,9 +43,10 @@ public class Branch {
     @OneToMany(mappedBy = "branch")
     private List<BranchUser> users;
 
-    public Branch(String name, BranchType type, String email) {
+    public Branch(String name, BranchType type, String email, BranchStatus status) {
         this.name = name;
         this.type = type;
         this.email = email;
+        this.status = status;
     }
 }

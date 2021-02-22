@@ -35,9 +35,10 @@ public class StockRequest {
 
     @ManyToOne
     private Vehicle vehicle;
-
     @ManyToOne
     private Branch fromBranch;
     @ManyToOne
     private Branch toBranch;
+    @ManyToOne
+    private Product product;
 }

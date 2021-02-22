@@ -18,6 +18,7 @@ public class ApplicationConstants {
 
     public static final class AlreadyExists {
         public static final String BRANCH_EXISTS_WITH_EMAIL = "This email already in use";
+        public static final String PRODUCT_EXISTS_WITH_NAME = "Product already exists with this name";
     }
 
 }

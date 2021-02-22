@@ -35,9 +35,8 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<Stock> stocks;
 
-    public Product(String name, String unit, List<Stock> stocks) {
+    public Product(String name, String unit) {
         this.name = name;
         this.unit = unit;
-        this.stocks = stocks;
     }
 }

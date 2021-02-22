@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.icbt.jksalessystem.util.ApplicationConstants.AlreadyExists.PRODUCT_EXISTS_WITH_NAME;
 
 /**
@@ -42,5 +45,14 @@ public class ProductServiceImpl implements ProductService {
         Product savedProduct = productRepository.save(new Product(productRequest.getName(), productRequest.getUnit()));
         log.info("Product saved: {}", savedProduct);
         return modelMapper.map(savedProduct, ProductDTO.class);
+    }
+
+    @Override
+    public List<ProductDTO> getAllProducts() {
+
+        List<ProductDTO> collect = productRepository.findAll().stream()
+                .map(product -> modelMapper.map(product, ProductDTO.class)).collect(Collectors.toList());
+        System.out.println("prducs" + collect);
+        return collect;
     }
 }

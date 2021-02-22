@@ -14,6 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
@@ -42,5 +44,11 @@ class ProductServiceTest {
         assertNotNull(createdProduct.getId());
         assertEquals(name, createdProduct.getName());
         assertEquals(unit, createdProduct.getUnit());
+    }
+
+    @Test
+    void getAllProducts() {
+        List<ProductDTO> products = productService.getAllProducts();
+        assertTrue(products.size() > 0);
     }
 }

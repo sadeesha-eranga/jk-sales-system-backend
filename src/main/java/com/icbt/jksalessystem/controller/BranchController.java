@@ -55,7 +55,8 @@ public class BranchController {
     public ResponseEntity<CommonResponseDTO> createBranch(@Valid @RequestBody BranchRequestDTO reqBody) {
         log.info("createBranch: {}", reqBody);
         branchService.saveBranch(reqBody);
-        return ResponseEntity.ok(new CommonResponseDTO(HttpStatus.CREATED.value(), "Branch created!"));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new CommonResponseDTO(HttpStatus.CREATED.value(), "Branch created!"));
     }
 
     @PutMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)

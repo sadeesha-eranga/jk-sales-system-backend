@@ -38,7 +38,8 @@ public class ProductController {
     public ResponseEntity<CommonResponseDTO> createProduct(@Valid @RequestBody ProductRequestDTO reqBody) {
         log.info("createProduct: {}", reqBody);
         productService.createProduct(reqBody);
-        return ResponseEntity.ok(new CommonResponseDTO(HttpStatus.CREATED.value(), "Product created!"));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new CommonResponseDTO(HttpStatus.CREATED.value(), "Product created!"));
     }
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)

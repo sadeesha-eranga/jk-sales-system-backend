@@ -38,7 +38,8 @@ public class StockController {
     public ResponseEntity<CommonResponseDTO> createStock(@Valid @RequestBody CreateStockDTO reqBody) {
         log.info("createStock: {}", reqBody);
         stockService.createStock(reqBody);
-        return ResponseEntity.ok(new CommonResponseDTO(HttpStatus.CREATED.value(), "Stock created!"));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new CommonResponseDTO(HttpStatus.CREATED.value(), "Stock created!"));
     }
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)

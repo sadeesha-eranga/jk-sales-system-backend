@@ -5,7 +5,10 @@ import com.icbt.jksalessystem.model.ProductDTO;
 import com.icbt.jksalessystem.model.request.ProductRequestDTO;
 import com.icbt.jksalessystem.repository.ProductRepository;
 import com.icbt.jksalessystem.service.impl.ProductServiceImpl;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.runner.RunWith;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = JkSalesSystemApplication.class)
 @AutoConfigureMockMvc
 @TestPropertySource(locations = "classpath:application-test.properties")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ProductServiceTest {
 
     private final ProductService productService;
@@ -32,6 +36,7 @@ class ProductServiceTest {
     }
 
     @Test
+    @Order(1)
     void createProduct() {
         String name = "Munchee Chocolate Biscuit";
         String unit = "packets";
@@ -47,6 +52,7 @@ class ProductServiceTest {
     }
 
     @Test
+    @Order(2)
     void getAllProducts() {
         List<ProductDTO> products = productService.getAllProducts();
         assertTrue(products.size() > 0);

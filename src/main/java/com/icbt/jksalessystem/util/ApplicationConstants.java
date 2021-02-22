@@ -10,6 +10,8 @@ public class ApplicationConstants {
     public static final class NotFound {
         public static final String USER_NOT_FOUND = "User not found!";
         public static final String BRANCH_NOT_FOUND = "Branch not found!";
+        public static final String PRODUCT_NOT_FOUND = "Product not found!";
+        public static final String STOCK_NOT_FOUND = "Stock not found!";
     }
 
     public static final class Invalid {

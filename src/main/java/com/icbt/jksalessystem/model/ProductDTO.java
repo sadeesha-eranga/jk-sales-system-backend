@@ -3,7 +3,6 @@ package com.icbt.jksalessystem.model;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -22,5 +21,4 @@ public class ProductDTO {
     private String unit;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private List<StockDTO> stocks;
 }

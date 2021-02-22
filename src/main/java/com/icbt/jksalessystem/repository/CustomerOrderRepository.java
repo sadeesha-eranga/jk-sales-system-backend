@@ -1,6 +1,6 @@
 package com.icbt.jksalessystem.repository;
 
-import com.icbt.jksalessystem.entity.Order;
+import com.icbt.jksalessystem.entity.CustomerOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * User: sadeesha
  * Date: 2021-02-22
  */
-public interface OrderRepository extends JpaRepository<Order, Long> {
+public interface CustomerOrderRepository extends JpaRepository<CustomerOrder, Long> {
 }

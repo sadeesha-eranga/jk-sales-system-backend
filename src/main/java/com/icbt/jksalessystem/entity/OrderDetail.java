@@ -25,7 +25,7 @@ public class OrderDetail {
     private BigDecimal amount;
 
     @ManyToOne
-    private Order order;
+    private CustomerOrder customerOrder;
     @ManyToOne
     private Stock stock;
 }

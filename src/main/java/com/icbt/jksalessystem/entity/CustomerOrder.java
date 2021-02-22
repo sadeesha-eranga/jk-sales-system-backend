@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @Entity
-public class Order {
+public class CustomerOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

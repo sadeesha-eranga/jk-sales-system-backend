@@ -32,4 +32,10 @@ public class Driver {
     private LocalDateTime createdAt;
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    public Driver(String name, String nic, String mobile) {
+        this.name = name;
+        this.nic = nic;
+        this.mobile = mobile;
+    }
 }

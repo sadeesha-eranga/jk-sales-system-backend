@@ -31,7 +31,7 @@ public class Customer {
     @Column(unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private List<CustomerOrder> orders;
 
     @CreationTimestamp

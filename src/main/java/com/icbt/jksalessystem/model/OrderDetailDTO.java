@@ -1,5 +1,6 @@
 package com.icbt.jksalessystem.model;
 
+import com.icbt.jksalessystem.model.response.StockResponseDTO;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -19,5 +20,5 @@ public class OrderDetailDTO {
     private Long id;
     private int qty;
     private BigDecimal amount;
-    private StockDTO stock;
+    private StockResponseDTO stock;
 }

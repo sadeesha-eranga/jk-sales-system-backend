@@ -18,7 +18,6 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 @Entity
 @Builder
 public class CustomerOrder {

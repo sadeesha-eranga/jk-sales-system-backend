@@ -1,19 +1,16 @@
 package com.icbt.jksalessystem.service;
 
 import com.icbt.jksalessystem.JkSalesSystemApplication;
-import com.icbt.jksalessystem.entity.Branch;
-import com.icbt.jksalessystem.entity.Customer;
-import com.icbt.jksalessystem.entity.Product;
-import com.icbt.jksalessystem.entity.Stock;
-import com.icbt.jksalessystem.enums.BranchStatus;
-import com.icbt.jksalessystem.enums.BranchType;
 import com.icbt.jksalessystem.enums.PaymentMethod;
 import com.icbt.jksalessystem.model.CustomerOrderDTO;
 import com.icbt.jksalessystem.model.request.CustomerOrderRequestDTO;
 import com.icbt.jksalessystem.model.request.OrderDetailRequestDTO;
 import com.icbt.jksalessystem.repository.*;
 import com.icbt.jksalessystem.service.impl.CustomerOrderServiceImpl;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.runner.RunWith;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +39,9 @@ class CustomerOrderServiceTest {
                                     CustomerRepository customerRepository,
                                     BranchRepository branchRepository,
                                     StockRepository stockRepository,
-                                    ProductRepository productRepository,
+                                    OrderDetailRepository orderDetailRepository,
                                     ModelMapper modelMapper) {
-        this.customerOrderService = new CustomerOrderServiceImpl(customerOrderRepository, customerRepository, branchRepository, stockRepository, modelMapper);
+        this.customerOrderService = new CustomerOrderServiceImpl(customerOrderRepository, customerRepository, branchRepository, stockRepository, orderDetailRepository, modelMapper);
     }
 
     @Test

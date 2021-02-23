@@ -2,12 +2,10 @@ package com.icbt.jksalessystem.service.impl;
 
 import com.icbt.jksalessystem.entity.*;
 import com.icbt.jksalessystem.exception.CustomServiceException;
-import com.icbt.jksalessystem.model.CustomerOrderDTO;
+import com.icbt.jksalessystem.model.*;
 import com.icbt.jksalessystem.model.request.CustomerOrderRequestDTO;
-import com.icbt.jksalessystem.repository.BranchRepository;
-import com.icbt.jksalessystem.repository.CustomerOrderRepository;
-import com.icbt.jksalessystem.repository.CustomerRepository;
-import com.icbt.jksalessystem.repository.StockRepository;
+import com.icbt.jksalessystem.model.response.StockResponseDTO;
+import com.icbt.jksalessystem.repository.*;
 import com.icbt.jksalessystem.service.CustomerOrderService;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -36,13 +34,20 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     private final CustomerRepository customerRepository;
     private final BranchRepository branchRepository;
     private final StockRepository stockRepository;
+    private final OrderDetailRepository orderDetailRepository;
     private final ModelMapper modelMapper;
 
-    public CustomerOrderServiceImpl(CustomerOrderRepository customerOrderRepository, CustomerRepository customerRepository, BranchRepository branchRepository, StockRepository stockRepository, ModelMapper modelMapper) {
+    public CustomerOrderServiceImpl(CustomerOrderRepository customerOrderRepository,
+                                    CustomerRepository customerRepository,
+                                    BranchRepository branchRepository,
+                                    StockRepository stockRepository,
+                                    OrderDetailRepository orderDetailRepository,
+                                    ModelMapper modelMapper) {
         this.customerOrderRepository = customerOrderRepository;
         this.customerRepository = customerRepository;
         this.branchRepository = branchRepository;
         this.stockRepository = stockRepository;
+        this.orderDetailRepository = orderDetailRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -61,7 +66,7 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
                 .paymentMethod(orderRequest.getPaymentMethod())
                 .build();
 
-        CustomerOrder savedCustomerOrder = customerOrderRepository.save(customerOrder);
+        CustomerOrder sco = customerOrderRepository.save(customerOrder);
 
         List<OrderDetail> orderDetails = orderRequest.getOrderDetails()
                 .stream().map(ord -> {
@@ -71,22 +76,26 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
                         throw new CustomServiceException(HttpStatus.BAD_REQUEST.value(), QTY_NOT_AVAILABLE);
                     stock.setRemainingQty(stock.getRemainingQty() - ord.getQty());
                     stockRepository.save(stock);
-                    return new OrderDetail(ord.getQty(), ord.getAmount(), savedCustomerOrder, stock);
+                    return new OrderDetail(ord.getQty(), ord.getAmount(), sco, stock);
                 }).collect(Collectors.toList());
 
-        savedCustomerOrder.setOrderDetails(orderDetails);
-        CustomerOrder updatedCustomerOrder = customerOrderRepository.save(savedCustomerOrder);
-        log.info("Customer order saved: {}", updatedCustomerOrder);
-        return modelMapper.map(updatedCustomerOrder, CustomerOrderDTO.class);
+        List<OrderDetail> savedOrderDetails = orderDetailRepository.saveAll(orderDetails);
+
+        CustomerOrderDTO customerOrderDTO = modelMapper.map(sco, CustomerOrderDTO.class);
+        customerOrderDTO.setOrderDetails( savedOrderDetails.stream()
+                .map(od -> modelMapper.map(od, OrderDetailDTO.class)).collect(Collectors.toList()));
+        return customerOrderDTO;
     }
 
     @Override
     public List<CustomerOrderDTO> searchByCustomerId(Long customerId) {
-        return null;
+        return customerOrderRepository.findByCustomerId(customerId).stream()
+                .map(customerOrder -> modelMapper.map(customerOrder, CustomerOrderDTO.class)).collect(Collectors.toList());
     }
 
     @Override
     public List<CustomerOrderDTO> searchByBranch(Integer branchId) {
-        return null;
+        return customerOrderRepository.findByBranchId(branchId).stream()
+                .map(customerOrder -> modelMapper.map(customerOrder, CustomerOrderDTO.class)).collect(Collectors.toList());
     }
 }

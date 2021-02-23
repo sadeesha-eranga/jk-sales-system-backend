@@ -1,8 +1,11 @@
 package com.icbt.jksalessystem.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -30,4 +33,15 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer")
     private List<CustomerOrder> orders;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+
+    public Customer(String name, String nic, String email) {
+        this.name = name;
+        this.nic = nic;
+        this.email = email;
+    }
 }

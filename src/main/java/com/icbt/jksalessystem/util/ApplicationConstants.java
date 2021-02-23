@@ -14,6 +14,7 @@ public class ApplicationConstants {
         public static final String STOCK_NOT_FOUND = "Stock not found!";
         public static final String FROM_BRANCH_NOT_FOUND = "From branch not found!";
         public static final String TO_BRANCH_NOT_FOUND = "To branch not found!";
+        public static final String CUSTOMER_NOT_FOUND = "Customer not found!";
     }
 
     public static final class Invalid {

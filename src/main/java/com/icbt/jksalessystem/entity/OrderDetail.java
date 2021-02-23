@@ -28,4 +28,11 @@ public class OrderDetail {
     private CustomerOrder customerOrder;
     @ManyToOne
     private Stock stock;
+
+    public OrderDetail(int qty, BigDecimal amount, CustomerOrder customerOrder, Stock stock) {
+        this.qty = qty;
+        this.amount = amount;
+        this.customerOrder = customerOrder;
+        this.stock = stock;
+    }
 }

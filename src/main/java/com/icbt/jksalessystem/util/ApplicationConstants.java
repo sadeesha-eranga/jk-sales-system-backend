@@ -26,4 +26,8 @@ public class ApplicationConstants {
         public static final String PRODUCT_EXISTS_WITH_NAME = "Product already exists with this name";
     }
 
+    public static final class NotAvailable {
+        public static final String QTY_NOT_AVAILABLE = "Stock qty not available";
+    }
+
 }

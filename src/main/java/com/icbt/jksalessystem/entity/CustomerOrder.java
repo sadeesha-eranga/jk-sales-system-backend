@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @Entity
+@Builder
 public class CustomerOrder {
 
     @Id
@@ -35,4 +37,7 @@ public class CustomerOrder {
     private Customer customer;
     @ManyToOne
     private Branch branch;
+
+    @OneToMany(mappedBy = "customerOrder")
+    private List<OrderDetail> orderDetails;
 }

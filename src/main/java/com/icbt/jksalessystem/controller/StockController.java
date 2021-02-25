@@ -50,6 +50,7 @@ public class StockController {
 
     @DeleteMapping(value = "/{stockId}")
     public ResponseEntity<CommonResponseDTO> deleteStock(@PathVariable Long stockId) {
+        log.info("deleteStock: {}", stockId);
         stockService.deleteStock(stockId);
         return ResponseEntity.ok(new CommonResponseDTO(true, "Stock deleted!"));
     }

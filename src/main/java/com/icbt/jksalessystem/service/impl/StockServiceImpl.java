@@ -55,7 +55,7 @@ public class StockServiceImpl implements StockService {
 
         Stock stock = new Stock(stockDTO.getTotalQty(), stockDTO.getTotalQty(), stockDTO.getUnitPrice(), branch, product);
         Stock savedStock = stockRepository.save(stock);
-        log.info("Stock saved: {}", savedStock);
+        log.info("Stock saved: {}", savedStock.getId());
         return modelMapper.map(savedStock, StockDTO.class);
     }
 

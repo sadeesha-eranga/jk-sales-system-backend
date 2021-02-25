@@ -60,7 +60,7 @@ public class AppExceptionHandler {
         BindingResult result = ex.getBindingResult();
 
         List<String> errorList = result.getFieldErrors().stream()
-                .map(fieldError -> fieldError.getField() + " : " + fieldError.getDefaultMessage()).collect(Collectors.toList());
+                .map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CommonResponseDTO(false,
                 errorList.isEmpty() ? "Invalid request data" : errorList.get(0)));

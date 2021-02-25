@@ -18,14 +18,14 @@ import java.math.BigDecimal;
 @ToString
 public class CreateStockDTO {
 
-    @Min(1)
+    @Min(value = 1, message = "Invalid total qty")
     private int totalQty;
-    @Min(1)
+    @Min(value = 1, message = "Invalid unit price")
     private BigDecimal unitPrice;
     @NotNull(message = "Branch ID cannot be null")
-    @Min(1)
+    @Min(value = 1, message = "Invalid branch ID")
     private Integer branchId;
     @NotNull(message = "Product ID cannot be null")
-    @Min(1)
+    @Min(value = 1, message = "Invalid product ID")
     private Integer productId;
 }

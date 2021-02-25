@@ -15,4 +15,6 @@ public interface StockRequestService {
     StockRequestDTO createStockRequest(CreateStockRequestDTO requestDTO);
 
     List<StockRequestDTO> getAllStockRequests();
+
+    List<StockRequestDTO> getAllStockRequests(Integer branchId);
 }

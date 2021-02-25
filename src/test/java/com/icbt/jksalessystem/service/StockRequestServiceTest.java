@@ -6,9 +6,11 @@ import com.icbt.jksalessystem.model.request.CreateStockRequestDTO;
 import com.icbt.jksalessystem.repository.BranchRepository;
 import com.icbt.jksalessystem.repository.ProductRepository;
 import com.icbt.jksalessystem.repository.StockRequestRepository;
-import com.icbt.jksalessystem.repository.VehicleRepository;
 import com.icbt.jksalessystem.service.impl.StockRequestServiceImpl;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.runner.RunWith;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +35,9 @@ class StockRequestServiceTest {
 
     @Autowired
     public StockRequestServiceTest(StockRequestRepository stockRequestRepository, ModelMapper modelMapper,
-                                   VehicleRepository vehicleRepository, BranchRepository branchRepository,
-                                   ProductRepository productRepository) {
+                                   BranchRepository branchRepository, ProductRepository productRepository) {
         this.stockRequestService = new StockRequestServiceImpl(stockRequestRepository,
-                modelMapper, vehicleRepository, branchRepository, productRepository);
+                modelMapper, branchRepository, productRepository);
     }
 
     @Test

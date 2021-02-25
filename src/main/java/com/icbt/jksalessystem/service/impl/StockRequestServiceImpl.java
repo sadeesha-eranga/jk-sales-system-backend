@@ -3,6 +3,7 @@ package com.icbt.jksalessystem.service.impl;
 import com.icbt.jksalessystem.entity.Branch;
 import com.icbt.jksalessystem.entity.Product;
 import com.icbt.jksalessystem.entity.StockRequest;
+import com.icbt.jksalessystem.enums.StockStatus;
 import com.icbt.jksalessystem.exception.CustomServiceException;
 import com.icbt.jksalessystem.model.StockRequestDTO;
 import com.icbt.jksalessystem.model.request.CreateStockRequestDTO;
@@ -35,18 +36,15 @@ public class StockRequestServiceImpl implements StockRequestService {
 
     private final StockRequestRepository stockRequestRepository;
     private final ModelMapper modelMapper;
-    private final VehicleRepository vehicleRepository;
     private final BranchRepository branchRepository;
     private final ProductRepository productRepository;
 
     public StockRequestServiceImpl(StockRequestRepository stockRequestRepository,
                                    ModelMapper modelMapper,
-                                   VehicleRepository vehicleRepository,
                                    BranchRepository branchRepository,
                                    ProductRepository productRepository) {
         this.stockRequestRepository = stockRequestRepository;
         this.modelMapper = modelMapper;
-        this.vehicleRepository = vehicleRepository;
         this.branchRepository = branchRepository;
         this.productRepository = productRepository;
     }
@@ -62,6 +60,7 @@ public class StockRequestServiceImpl implements StockRequestService {
                 .orElseThrow(() -> new CustomServiceException(HttpStatus.NOT_FOUND.value(), TO_BRANCH_NOT_FOUND));
         StockRequest stockRequest = StockRequest.builder()
                 .product(product)
+                .status(StockStatus.PENDING)
                 .fromBranch(fromBranch)
                 .toBranch(toBranch)
                 .build();
@@ -73,6 +72,12 @@ public class StockRequestServiceImpl implements StockRequestService {
     @Override
     public List<StockRequestDTO> getAllStockRequests() {
         return stockRequestRepository.findAll().stream()
+                .map(stockRequest -> modelMapper.map(stockRequest, StockRequestDTO.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<StockRequestDTO> getAllStockRequests(Integer branchId) {
+        return stockRequestRepository.getBranchStockRequests(branchId).stream()
                 .map(stockRequest -> modelMapper.map(stockRequest, StockRequestDTO.class)).collect(Collectors.toList());
     }
 }

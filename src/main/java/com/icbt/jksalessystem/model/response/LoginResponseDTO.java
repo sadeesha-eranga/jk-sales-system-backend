@@ -18,4 +18,6 @@ public class LoginResponseDTO {
     private String username;
     private String accessToken;
     private String role;
+    private Integer userId;
+    private Integer branchId;
 }

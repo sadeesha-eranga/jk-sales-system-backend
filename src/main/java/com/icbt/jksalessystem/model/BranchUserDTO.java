@@ -24,5 +24,5 @@ public class BranchUserDTO {
     private String password;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private BranchDTO branchDTO;
+    private BranchDTO branch;
 }

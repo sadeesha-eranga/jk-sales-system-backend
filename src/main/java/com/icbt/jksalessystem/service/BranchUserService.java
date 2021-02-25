@@ -12,4 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface BranchUserService extends UserDetailsService {
 
     BranchUserDTO createBranchUser(BranchUserRequestDTO branchUser);
+
+    BranchUserDTO searchUser(String username);
 }

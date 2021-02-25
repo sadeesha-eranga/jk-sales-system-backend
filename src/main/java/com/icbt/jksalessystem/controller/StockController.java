@@ -39,18 +39,18 @@ public class StockController {
         log.info("createStock: {}", reqBody);
         stockService.createStock(reqBody);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new CommonResponseDTO(HttpStatus.CREATED.value(), "Stock created!"));
+                .body(new CommonResponseDTO(true, "Stock created!"));
     }
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<StockListResponseDTO> getAllStocks() {
         List<StockDTO> stocks = stockService.getAllStocks();
-        return ResponseEntity.ok(new StockListResponseDTO(HttpStatus.OK.value(), stocks));
+        return ResponseEntity.ok(new StockListResponseDTO(true, stocks));
     }
 
     @DeleteMapping(value = "/{stockId}")
     public ResponseEntity<CommonResponseDTO> deleteStock(@PathVariable Long stockId) {
         stockService.deleteStock(stockId);
-        return ResponseEntity.ok(new CommonResponseDTO(HttpStatus.OK.value(), "Stock deleted!"));
+        return ResponseEntity.ok(new CommonResponseDTO(true, "Stock deleted!"));
     }
 }

@@ -33,25 +33,25 @@ public class AppExceptionHandler {
     public ResponseEntity<CommonResponseDTO> handleInvalidInputException(Exception ex) {
         log.error(ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new CommonResponseDTO(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Something went wrong! "));
+                .body(new CommonResponseDTO(false, "Something went wrong! "));
     }
 
     @ExceptionHandler(value = {CustomServiceException.class})
     public ResponseEntity<Object> handleInvalidInputException(CustomServiceException ex) {
         log.error(ex.getMessage());
-        return getBadRequestError(ex, ex.getCode());
+        return ResponseEntity.status(ex.getCode()).body(new CommonResponseDTO(false, ex.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public final ResponseEntity<Object> handleArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
         log.error(ex.getMessage());
-        return getBadRequestError(ex, HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(new CommonResponseDTO(false, ex.getMessage()));
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public final ResponseEntity<Object> handleArgumentTypeMismatchException(HttpMessageNotReadableException ex) {
         log.error(ex.getMessage());
-        return getBadRequestError(ex, HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(new CommonResponseDTO(false, ex.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -60,33 +60,27 @@ public class AppExceptionHandler {
         BindingResult result = ex.getBindingResult();
 
         List<String> errorList = result.getFieldErrors().stream()
-                .map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.toList());
+                .map(fieldError -> fieldError.getField() + " : " + fieldError.getDefaultMessage()).collect(Collectors.toList());
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CommonResponseDTO(HttpStatus.BAD_REQUEST.value(),
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CommonResponseDTO(false,
                 errorList.isEmpty() ? "Invalid request data" : errorList.get(0)));
     }
 
     @ExceptionHandler(value = {CustomAuthenticationException.class})
     public ResponseEntity<CommonResponseDTO> handleAuthenticationException(CustomAuthenticationException ex, WebRequest webRequest) {
         log.error(ex.getMessage());
-        return new ResponseEntity<>(new CommonResponseDTO(ex.getStatus(), ex.getMessage()), HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(new CommonResponseDTO(false, ex.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(value = {AccessDeniedException.class})
     public ResponseEntity<CommonResponseDTO> handleAccessDeniedException(AccessDeniedException ex, WebRequest webRequest) {
         log.error(ex.getMessage());
-        return new ResponseEntity<>(new CommonResponseDTO(HttpStatus.UNAUTHORIZED.value(), ex.getMessage()), HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(new CommonResponseDTO(false, ex.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(value = {UsernameNotFoundException.class})
     public ResponseEntity<CommonResponseDTO> handleUsernameNotFoundException(UsernameNotFoundException ex, WebRequest webRequest) {
         log.error(ex.getMessage());
-        return new ResponseEntity<>(new CommonResponseDTO(HttpStatus.UNAUTHORIZED.value(), ex.getMessage()), HttpStatus.UNAUTHORIZED);
-    }
-
-
-    private ResponseEntity<Object> getBadRequestError(Exception ex, int code) {
-        log.error(ex.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CommonResponseDTO(code, ex.getMessage()));
+        return new ResponseEntity<>(new CommonResponseDTO(false, ex.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 }

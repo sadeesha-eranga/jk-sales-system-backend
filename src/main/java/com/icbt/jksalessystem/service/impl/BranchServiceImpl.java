@@ -94,4 +94,9 @@ public class BranchServiceImpl implements BranchService {
                 .orElseThrow(() -> new CustomServiceException(HttpStatus.NOT_FOUND.value(), BRANCH_NOT_FOUND));
         return modelMapper.map(branch, BranchFullDTO.class);
     }
+
+    @Override
+    public long countAll() {
+        return branchRepository.count();
+    }
 }

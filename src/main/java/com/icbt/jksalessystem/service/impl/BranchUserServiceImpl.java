@@ -62,4 +62,11 @@ public class BranchUserServiceImpl implements BranchUserService {
         log.info("Branch user saved: {}", savedUser);
         return modelMapper.map(savedUser, BranchUserDTO.class);
     }
+
+    @Override
+    public BranchUserDTO searchUser(String username) {
+        BranchUser branchUser = branchUserRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomServiceException(HttpStatus.UNAUTHORIZED.value(), USER_NOT_FOUND));
+        return modelMapper.map(branchUser, BranchUserDTO.class);
+    }
 }

@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 @ToString
 public class StockResponseDTO {
 
+    private boolean success;
     private Long id;
     private int totalQty;
     private int remainingQty;

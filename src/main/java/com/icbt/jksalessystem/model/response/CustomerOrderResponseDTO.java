@@ -15,6 +15,6 @@ import lombok.*;
 @ToString
 public class CustomerOrderResponseDTO {
 
-    private int code;
+    private boolean success;
     private CustomerOrderDTO customerOrder;
 }

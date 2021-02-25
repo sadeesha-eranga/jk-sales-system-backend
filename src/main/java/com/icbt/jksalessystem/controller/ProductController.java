@@ -39,12 +39,12 @@ public class ProductController {
         log.info("createProduct: {}", reqBody);
         productService.createProduct(reqBody);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new CommonResponseDTO(HttpStatus.CREATED.value(), "Product created!"));
+                .body(new CommonResponseDTO(true, "Product created!"));
     }
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ProductListResponse> getAllProducts() {
         List<ProductDTO> allProducts = productService.getAllProducts();
-        return ResponseEntity.ok(new ProductListResponse(HttpStatus.OK.value(), allProducts));
+        return ResponseEntity.ok(new ProductListResponse(true, allProducts));
     }
 }

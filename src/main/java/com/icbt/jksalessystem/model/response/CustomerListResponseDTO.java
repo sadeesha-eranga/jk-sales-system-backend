@@ -17,6 +17,6 @@ import java.util.List;
 @ToString
 public class CustomerListResponseDTO {
 
-    private int code;
+    private boolean success;
     private List<CustomerDTO> customers;
 }

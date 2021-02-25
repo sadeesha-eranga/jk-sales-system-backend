@@ -39,13 +39,13 @@ public class VehicleController {
         log.info("createVehicle: {}", reqBody);
         vehicleService.createVehicle(reqBody);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new CommonResponseDTO(HttpStatus.CREATED.value(), "Vehicle created"));
+                .body(new CommonResponseDTO(true, "Vehicle created"));
     }
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<VehicleListResponseDTO> getAllVehicles() {
         List<VehicleDTO> vehicles = vehicleService.getAllVehicles();
-        return ResponseEntity.ok(new VehicleListResponseDTO(HttpStatus.OK.value(), vehicles));
+        return ResponseEntity.ok(new VehicleListResponseDTO(true, vehicles));
     }
 
 }

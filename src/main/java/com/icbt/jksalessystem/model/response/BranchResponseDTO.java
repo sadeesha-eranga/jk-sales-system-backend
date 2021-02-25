@@ -15,6 +15,6 @@ import lombok.*;
 @ToString
 public class BranchResponseDTO {
 
-    private int code;
+    private boolean success;
     private BranchFullDTO branch;
 }

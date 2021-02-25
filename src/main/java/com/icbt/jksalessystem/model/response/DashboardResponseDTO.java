@@ -1,22 +1,22 @@
 package com.icbt.jksalessystem.model.response;
 
-import com.icbt.jksalessystem.model.ProductDTO;
 import lombok.*;
-
-import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
  * User: sadeesha
- * Date: 2021-02-22
+ * Date: 2021-02-25
  */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class ProductListResponse {
+public class DashboardResponseDTO {
 
     private boolean success;
-    private List<ProductDTO> products;
+    private long branchCount;
+    private long stockRequestCount;
+    private long customerCount;
+    private long stockCount;
 }

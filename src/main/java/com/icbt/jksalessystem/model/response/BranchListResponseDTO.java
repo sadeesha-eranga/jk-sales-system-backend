@@ -17,6 +17,6 @@ import java.util.List;
 @ToString
 public class BranchListResponseDTO {
 
-    private int code;
+    private boolean success;
     private List<BranchDTO> branches;
 }

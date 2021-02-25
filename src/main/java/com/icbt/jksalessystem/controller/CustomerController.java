@@ -39,19 +39,19 @@ public class CustomerController {
     public ResponseEntity<CustomerResponseDTO> createCustomer(@Valid @RequestBody CustomerRequestDTO reqBody) {
         log.info("createCustomer: {}", reqBody);
         CustomerDTO customer = customerService.createCustomer(reqBody);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new CustomerResponseDTO(HttpStatus.CREATED.value(), customer));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new CustomerResponseDTO(true, customer));
     }
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<CustomerListResponseDTO> getAllCustomers() {
         List<CustomerDTO> customers = customerService.getAllCustomers();
-        return ResponseEntity.ok(new CustomerListResponseDTO(HttpStatus.OK.value(), customers));
+        return ResponseEntity.ok(new CustomerListResponseDTO(true, customers));
     }
 
     @GetMapping(value = "/{nic}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<CustomerResponseDTO> searchCustomer(@PathVariable String nic) {
         log.info("searchCustomer: {}", nic);
         CustomerDTO customer = customerService.searchCustomerByNic(nic);
-        return ResponseEntity.ok(new CustomerResponseDTO(HttpStatus.OK.value(), customer));
+        return ResponseEntity.ok(new CustomerResponseDTO(true, customer));
     }
 }

@@ -3,6 +3,7 @@ package com.icbt.jksalessystem.controller;
 import com.icbt.jksalessystem.exception.CustomAuthenticationException;
 import com.icbt.jksalessystem.model.BranchDTO;
 import com.icbt.jksalessystem.model.BranchFullDTO;
+import com.icbt.jksalessystem.model.BranchUserDTO;
 import com.icbt.jksalessystem.model.request.BranchRequestDTO;
 import com.icbt.jksalessystem.model.request.BranchUserRequestDTO;
 import com.icbt.jksalessystem.model.response.BranchListResponseDTO;
@@ -56,35 +57,35 @@ public class BranchController {
         log.info("createBranch: {}", reqBody);
         branchService.saveBranch(reqBody);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new CommonResponseDTO(HttpStatus.CREATED.value(), "Branch created!"));
+                .body(new CommonResponseDTO(true, "Branch created!"));
     }
 
     @PutMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<CommonResponseDTO> updateBranch(@Valid @RequestBody BranchRequestDTO reqBody) {
         log.info("updateBranch: {}", reqBody);
         branchService.updateBranch(reqBody);
-        return ResponseEntity.ok(new CommonResponseDTO(HttpStatus.OK.value(), "Branch updated!"));
+        return ResponseEntity.ok(new CommonResponseDTO(true, "Branch updated!"));
     }
 
     @DeleteMapping(value = "/{branchId}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<CommonResponseDTO> deleteBranch(@PathVariable Integer branchId) {
         log.info("deleteBranch: {}", branchId);
         branchService.deleteBranch(branchId);
-        return ResponseEntity.ok(new CommonResponseDTO(HttpStatus.OK.value(), "Branch deleted!"));
+        return ResponseEntity.ok(new CommonResponseDTO(true, "Branch deleted!"));
     }
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<BranchListResponseDTO> getAllBranches() {
         log.info("getAllBranches");
         List<BranchDTO> allBranches = branchService.getAllBranches();
-        return ResponseEntity.ok(new BranchListResponseDTO(HttpStatus.OK.value(), allBranches));
+        return ResponseEntity.ok(new BranchListResponseDTO(true, allBranches));
     }
 
     @GetMapping(value = "/{branchId}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<BranchResponseDTO> searchBranch(@PathVariable int branchId) {
         log.info("searchBranch: {}", branchId);
         BranchFullDTO branch = branchService.searchBranch(branchId);
-        return ResponseEntity.ok(new BranchResponseDTO(HttpStatus.OK.value(), branch));
+        return ResponseEntity.ok(new BranchResponseDTO(true, branch));
     }
 
     @PostMapping(value = "/users/login", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
@@ -95,7 +96,10 @@ public class BranchController {
             UserDetails userDetails = branchUserService.loadUserByUsername(reqBody.getUsername());
             String accessToken = JwtUtil.getInstance().generateToken(userDetails);
             String authority = new ArrayList<GrantedAuthority>(userDetails.getAuthorities()).get(0).getAuthority();
-            return ResponseEntity.ok(new LoginResponseDTO(true, reqBody.getUsername(), accessToken, authority));
+            BranchUserDTO branchUserDTO = branchUserService.searchUser(reqBody.getUsername());
+            System.out.println("here" + branchUserDTO);
+            return ResponseEntity.ok(new LoginResponseDTO(true, branchUserDTO.getUsername(), accessToken, authority,
+                    branchUserDTO.getId(), branchUserDTO.getBranch().getId()));
         } catch (BadCredentialsException e) {
             log.info("Authentication failed: {}", reqBody.getUsername());
             throw new CustomAuthenticationException(HttpStatus.UNAUTHORIZED.value(), INVALID_USERNAME_PASSWORD);
@@ -106,6 +110,6 @@ public class BranchController {
     public ResponseEntity<CommonResponseDTO> addUserToBranch(@Valid @RequestBody BranchUserRequestDTO reqBody) {
         log.info("addUserToBranch: {}", reqBody);
         branchUserService.createBranchUser(reqBody);
-        return ResponseEntity.ok(new CommonResponseDTO(HttpStatus.OK.value(), "Branch user created!"));
+        return ResponseEntity.ok(new CommonResponseDTO(true, "Branch user created!"));
     }
 }

@@ -22,4 +22,6 @@ public interface BranchService {
     List<BranchDTO> getAllBranches();
 
     BranchFullDTO searchBranch(Integer branchId);
+
+    long countAll();
 }

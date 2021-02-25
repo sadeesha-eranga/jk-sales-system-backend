@@ -14,6 +14,6 @@ import lombok.*;
 @ToString
 public class CommonResponseDTO {
 
-    private int code;
+    private boolean success;
     private String message;
 }

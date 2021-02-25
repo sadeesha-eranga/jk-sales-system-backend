@@ -15,6 +15,6 @@ import lombok.*;
 @ToString
 public class CustomerResponseDTO {
 
-    private int code;
+    private boolean success;
     private CustomerDTO customer;
 }

@@ -37,18 +37,18 @@ public class CustomerOrderController {
     public ResponseEntity<CustomerOrderResponseDTO> createCustomerOrder(@Valid @RequestBody CustomerOrderRequestDTO reqBody) {
         log.info("createCustomerOrder: {}", reqBody);
         CustomerOrderDTO customerOrder = customerOrderService.createCustomerOrder(reqBody);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new CustomerOrderResponseDTO(HttpStatus.CREATED.value(), customerOrder));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new CustomerOrderResponseDTO(true, customerOrder));
     }
 
     @GetMapping(value = "/branch/{branchId}")
     public ResponseEntity<CustomerOrderListResponseDTO> getOrdersByBranch(@PathVariable int branchId) {
         List<CustomerOrderDTO> orders = customerOrderService.searchByBranch(branchId);
-        return ResponseEntity.ok(new CustomerOrderListResponseDTO(HttpStatus.OK.value(), orders));
+        return ResponseEntity.ok(new CustomerOrderListResponseDTO(true, orders));
     }
 
     @GetMapping(value = "/customer/{customerId}")
     public ResponseEntity<CustomerOrderListResponseDTO> getOrderByCustomer(@PathVariable Long customerId) {
         List<CustomerOrderDTO> orders = customerOrderService.searchByCustomerId(customerId);
-        return ResponseEntity.ok(new CustomerOrderListResponseDTO(HttpStatus.OK.value(), orders));
+        return ResponseEntity.ok(new CustomerOrderListResponseDTO(true, orders));
     }
 }

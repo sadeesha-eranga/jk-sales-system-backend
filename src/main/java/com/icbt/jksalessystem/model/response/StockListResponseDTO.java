@@ -17,6 +17,6 @@ import java.util.List;
 @ToString
 public class StockListResponseDTO {
 
-    private int code;
+    private boolean success;
     private List<StockDTO> stocks;
 }

@@ -39,12 +39,12 @@ public class StockRequestController {
         log.info("sendStockRequest: {}", reqBody);
         stockRequestService.createStockRequest(reqBody);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new CommonResponseDTO(HttpStatus.CREATED.value(), "Stock request created!"));
+                .body(new CommonResponseDTO(true, "Stock request created!"));
     }
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<StockRequestListResponseDTO> getAllStockRequests() {
         List<StockRequestDTO> stockRequests = stockRequestService.getAllStockRequests();
-        return ResponseEntity.ok(new StockRequestListResponseDTO(HttpStatus.OK.value(), stockRequests));
+        return ResponseEntity.ok(new StockRequestListResponseDTO(true, stockRequests));
     }
 }

@@ -2,9 +2,9 @@ package com.icbt.jksalessystem.service.impl;
 
 import com.icbt.jksalessystem.entity.*;
 import com.icbt.jksalessystem.exception.CustomServiceException;
-import com.icbt.jksalessystem.model.*;
+import com.icbt.jksalessystem.model.CustomerOrderDTO;
+import com.icbt.jksalessystem.model.OrderDetailDTO;
 import com.icbt.jksalessystem.model.request.CustomerOrderRequestDTO;
-import com.icbt.jksalessystem.model.response.StockResponseDTO;
 import com.icbt.jksalessystem.repository.*;
 import com.icbt.jksalessystem.service.CustomerOrderService;
 import lombok.extern.log4j.Log4j2;

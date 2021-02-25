@@ -48,6 +48,12 @@ public class StockController {
         return ResponseEntity.ok(new StockListResponseDTO(true, stocks));
     }
 
+    @GetMapping(value = "/{branchId}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<StockListResponseDTO> getAllStocks(@PathVariable int branchId) {
+        List<StockDTO> stocks = stockService.getAllStocks(branchId);
+        return ResponseEntity.ok(new StockListResponseDTO(true, stocks));
+    }
+
     @DeleteMapping(value = "/{stockId}")
     public ResponseEntity<CommonResponseDTO> deleteStock(@PathVariable Long stockId) {
         log.info("deleteStock: {}", stockId);

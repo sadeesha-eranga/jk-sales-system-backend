@@ -18,4 +18,6 @@ public interface StockService {
     boolean deleteStock(Long stockId);
 
     List<StockDTO> getAllStocks();
+
+    List<StockDTO> getAllStocks(Integer branchId);
 }

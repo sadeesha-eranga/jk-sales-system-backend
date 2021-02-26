@@ -12,7 +12,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -29,13 +28,16 @@ class BranchServiceTest {
     private final BranchService branchService;
 
     @Autowired
-    public BranchServiceTest(BranchRepository branchRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
-        this.branchService = new BranchServiceImpl(branchRepository, modelMapper, passwordEncoder);
+    public BranchServiceTest(BranchRepository branchRepository, ModelMapper modelMapper) {
+        this.branchService = new BranchServiceImpl(branchRepository, modelMapper);
     }
 
     @Test
     void saveBranch() {
-        BranchRequestDTO testBranch = new BranchRequestDTO("Branch name", "sadeeshae@ceyentra.com");
+        String name = "Branch name";
+        String email = "sadeeshae@ceyentra.com";
+
+        BranchRequestDTO testBranch = new BranchRequestDTO(name, email);
         BranchDTO savedBranch = branchService.saveBranch(testBranch);
 
         assertNotNull(savedBranch);
@@ -66,7 +68,6 @@ class BranchServiceTest {
 
         assertTrue(result);
     }
-
 
     @Test
     void getAllBranches() {

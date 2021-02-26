@@ -1,20 +1,17 @@
 package com.icbt.jksalessystem.service.impl;
 
 import com.icbt.jksalessystem.entity.Branch;
-import com.icbt.jksalessystem.entity.BranchUser;
 import com.icbt.jksalessystem.enums.BranchStatus;
 import com.icbt.jksalessystem.enums.BranchType;
 import com.icbt.jksalessystem.exception.CustomServiceException;
 import com.icbt.jksalessystem.model.BranchDTO;
 import com.icbt.jksalessystem.model.BranchFullDTO;
 import com.icbt.jksalessystem.model.request.BranchRequestDTO;
-import com.icbt.jksalessystem.model.request.BranchUserRequestDTO;
 import com.icbt.jksalessystem.repository.BranchRepository;
 import com.icbt.jksalessystem.service.BranchService;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,12 +34,10 @@ public class BranchServiceImpl implements BranchService {
 
     private final BranchRepository branchRepository;
     private final ModelMapper modelMapper;
-    private final PasswordEncoder passwordEncoder;
 
-    public BranchServiceImpl(BranchRepository branchRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
+    public BranchServiceImpl(BranchRepository branchRepository, ModelMapper modelMapper) {
         this.branchRepository = branchRepository;
         this.modelMapper = modelMapper;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override

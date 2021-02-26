@@ -1,8 +1,12 @@
 package com.icbt.jksalessystem.service;
 
 import com.icbt.jksalessystem.JkSalesSystemApplication;
+import com.icbt.jksalessystem.model.BranchDTO;
+import com.icbt.jksalessystem.model.ProductDTO;
 import com.icbt.jksalessystem.model.StockDTO;
+import com.icbt.jksalessystem.model.request.BranchRequestDTO;
 import com.icbt.jksalessystem.model.request.CreateStockDTO;
+import com.icbt.jksalessystem.model.request.ProductRequestDTO;
 import com.icbt.jksalessystem.repository.BranchRepository;
 import com.icbt.jksalessystem.repository.ProductRepository;
 import com.icbt.jksalessystem.repository.StockRepository;
@@ -32,17 +36,31 @@ import static org.junit.jupiter.api.Assertions.*;
 class StockServiceTest {
 
     private final StockService stockService;
+    private final ProductService productService;
+    private final BranchService branchService;
 
     @Autowired
-    public StockServiceTest(StockRepository stockRepository, BranchRepository branchRepository, ProductRepository productRepository, ModelMapper modelMapper) {
+    public StockServiceTest(StockRepository stockRepository,
+                            BranchRepository branchRepository,
+                            ProductRepository productRepository,
+                            ModelMapper modelMapper,
+                            ProductService productService, BranchService branchService) {
+        this.productService = productService;
+        this.branchService = branchService;
         this.stockService = new StockServiceImpl(stockRepository, branchRepository, productRepository, modelMapper);
     }
 
     @Test
     @Order(1)
     void createStock() {
-        int productId = 1;
-        int branchId = 1;
+        ProductRequestDTO productRequest = new ProductRequestDTO("Munchee Chocolate Biscuit", "packets");
+        ProductDTO savedProduct = productService.createProduct(productRequest);
+
+        BranchRequestDTO testBranch = new BranchRequestDTO("Branch name", "sadeeshae@ceyentra.com");
+        BranchDTO savedBranch = branchService.saveBranch(testBranch);
+
+        int productId = savedProduct.getId();
+        int branchId = savedBranch.getId();
         int totalQty = 100;
         BigDecimal unitPrice = new BigDecimal("100.00");
 

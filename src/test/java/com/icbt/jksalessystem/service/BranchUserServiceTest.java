@@ -35,7 +35,7 @@ class BranchUserServiceTest {
     @Autowired
     public BranchUserServiceTest(BranchRepository branchRepository, BranchUserRepository branchUserRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
         this.branchUserService = new BranchUserServiceImpl(branchRepository, branchUserRepository, modelMapper, passwordEncoder);
-        this.branchService = new BranchServiceImpl(branchRepository, modelMapper, passwordEncoder);
+        this.branchService = new BranchServiceImpl(branchRepository, modelMapper);
     }
 
     @Test
@@ -54,5 +54,13 @@ class BranchUserServiceTest {
         assertNotNull(savedBranchUser.getId());
         assertEquals(name, savedBranchUser.getName());
         assertEquals(username, savedBranchUser.getUsername());
+    }
+
+    @Test
+    void searchUser() {
+        String username = "new_branch_user";
+        BranchUserDTO searchedUser = branchUserService.searchUser(username);
+        assertNotNull(searchedUser);
+        assertEquals(searchedUser.getUsername(), username);
     }
 }

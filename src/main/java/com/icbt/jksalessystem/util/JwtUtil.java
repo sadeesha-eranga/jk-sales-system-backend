@@ -23,12 +23,13 @@ import java.util.stream.Collectors;
 public class JwtUtil {
 
     private static final String SECRET_KEY = "V2xoc1MyVnRVbGhUVjJ4UVlWVnZlRmw2U2xkbFZXeHdaREpzYW1KVWJIcFhiR2hPWVZVNWMy";
-    private static final JwtUtil jwtUtil = new JwtUtil();
+    private static JwtUtil jwtUtil;
 
     private JwtUtil() {
     }
 
     public static JwtUtil getInstance() {
+        if (jwtUtil == null) jwtUtil = new JwtUtil();
         return jwtUtil;
     }
 

@@ -19,7 +19,7 @@ CREATE TABLE `branch` (
                           `updated_at` datetime(6) DEFAULT NULL,
                           PRIMARY KEY (`id`),
                           UNIQUE KEY `UK_q5alqrisfvpjk2t07gw4sofe` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB;
 
 CREATE TABLE `branch_user` (
                                `id` int NOT NULL AUTO_INCREMENT,
@@ -33,7 +33,7 @@ CREATE TABLE `branch_user` (
                                UNIQUE KEY `UK_r1nrtbc4ce2qrbl0mkd3v6nbw` (`username`),
                                KEY `FKg973x7lagvfhn5vxdb2w9h8l7` (`branch_id`),
                                CONSTRAINT `FKg973x7lagvfhn5vxdb2w9h8l7` FOREIGN KEY (`branch_id`) REFERENCES `branch` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB;
 
 CREATE TABLE `product` (
                            `id` int NOT NULL AUTO_INCREMENT,
@@ -43,7 +43,7 @@ CREATE TABLE `product` (
                            `updated_at` datetime(6) DEFAULT NULL,
                            PRIMARY KEY (`id`),
                            UNIQUE KEY `UK_jmivyxk9rmgysrmsqw15lqr5b` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB;
 
 CREATE TABLE `stock` (
                          `id` bigint NOT NULL AUTO_INCREMENT,
@@ -59,7 +59,7 @@ CREATE TABLE `stock` (
                          KEY `FKjghkvw2snnsr5gpct0of7xfcf` (`product_id`),
                          CONSTRAINT `FK8wkpxnja0ikk6t0xp3ju8aoar` FOREIGN KEY (`branch_id`) REFERENCES `branch` (`id`),
                          CONSTRAINT `FKjghkvw2snnsr5gpct0of7xfcf` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB;
 
 CREATE TABLE `driver` (
                           `id` int NOT NULL AUTO_INCREMENT,
@@ -70,7 +70,7 @@ CREATE TABLE `driver` (
                           `updated_at` datetime(6) DEFAULT NULL,
                           PRIMARY KEY (`id`),
                           UNIQUE KEY `UK_3uwrkhrnjh7vooab613cxai8l` (`nic`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB;
 
 CREATE TABLE `vehicle` (
                            `id` int NOT NULL AUTO_INCREMENT,
@@ -82,7 +82,7 @@ CREATE TABLE `vehicle` (
                            UNIQUE KEY `UK_on0sjlojs25uuo4o6s2dwflt3` (`vehicle_no`),
                            KEY `FKdpor9ohov2f3optwe7twe49tt` (`driver_id`),
                            CONSTRAINT `FKdpor9ohov2f3optwe7twe49tt` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB;
 
 CREATE TABLE `stock_request` (
                                  `id` bigint NOT NULL AUTO_INCREMENT,
@@ -102,7 +102,7 @@ CREATE TABLE `stock_request` (
                                  CONSTRAINT `FKipfdgggg67teyna5j2ghao59m` FOREIGN KEY (`from_branch_id`) REFERENCES `branch` (`id`),
                                  CONSTRAINT `FKo7yy42yob53p3d8qgwsvs0uf4` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicle` (`id`),
                                  CONSTRAINT `FKob8nr58opjqep8vkx5xwd40nj` FOREIGN KEY (`to_branch_id`) REFERENCES `branch` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB;
 
 CREATE TABLE `customer` (
                             `id` bigint NOT NULL AUTO_INCREMENT,
@@ -114,7 +114,7 @@ CREATE TABLE `customer` (
                             PRIMARY KEY (`id`),
                             UNIQUE KEY `UK_9st6x9trhf0s27g0vgpcaeu3m` (`nic`),
                             UNIQUE KEY `UK_dwk6cx0afu8bs9o4t536v1j5v` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB;
 
 CREATE TABLE `customer_order` (
                                   `id` bigint NOT NULL AUTO_INCREMENT,
@@ -128,7 +128,7 @@ CREATE TABLE `customer_order` (
                                   KEY `FKf9abd30bhiqvugayxlpq8ryq9` (`customer_id`),
                                   CONSTRAINT `FKacvy3qv44w6at548n4qpy21te` FOREIGN KEY (`branch_id`) REFERENCES `branch` (`id`),
                                   CONSTRAINT `FKf9abd30bhiqvugayxlpq8ryq9` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB;
 
 CREATE TABLE `order_detail` (
                                 `id` bigint NOT NULL AUTO_INCREMENT,
@@ -141,4 +141,4 @@ CREATE TABLE `order_detail` (
                                 KEY `FKb49cefnejnqx3na7tuyom71oe` (`stock_id`),
                                 CONSTRAINT `FKb49cefnejnqx3na7tuyom71oe` FOREIGN KEY (`stock_id`) REFERENCES `stock` (`id`),
                                 CONSTRAINT `FKdrhjbfo2ihc2wdkmaajtodsqh` FOREIGN KEY (`customer_order_id`) REFERENCES `customer_order` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB;

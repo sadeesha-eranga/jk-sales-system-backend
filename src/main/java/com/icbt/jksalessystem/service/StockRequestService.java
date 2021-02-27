@@ -17,4 +17,6 @@ public interface StockRequestService {
     List<StockRequestDTO> getAllStockRequests();
 
     List<StockRequestDTO> getAllStockRequests(Integer branchId);
+
+    long countAll(int branchId);
 }

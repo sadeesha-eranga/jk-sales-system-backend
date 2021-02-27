@@ -80,4 +80,9 @@ public class StockRequestServiceImpl implements StockRequestService {
         return stockRequestRepository.getBranchStockRequests(branchId).stream()
                 .map(stockRequest -> modelMapper.map(stockRequest, StockRequestDTO.class)).collect(Collectors.toList());
     }
+
+    @Override
+    public long countAll(int branchId) {
+        return stockRequestRepository.countAllByBranch(branchId);
+    }
 }

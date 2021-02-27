@@ -57,4 +57,9 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findAll().stream()
                 .map(customer -> modelMapper.map(customer, CustomerDTO.class)).collect(Collectors.toList());
     }
+
+    @Override
+    public long countAll() {
+        return customerRepository.count();
+    }
 }

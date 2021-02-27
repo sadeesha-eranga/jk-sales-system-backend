@@ -13,4 +13,6 @@ import java.util.List;
 public interface StockRepository extends JpaRepository<Stock, Long> {
 
     List<Stock> findByBranchId(Integer branchId);
+
+    long countAllByBranchId(Integer branchId);
 }

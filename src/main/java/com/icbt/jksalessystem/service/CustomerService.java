@@ -17,4 +17,6 @@ public interface CustomerService {
     CustomerDTO searchCustomerByNic(String nic);
 
     List<CustomerDTO> getAllCustomers();
+
+    long countAll();
 }

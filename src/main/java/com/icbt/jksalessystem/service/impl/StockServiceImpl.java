@@ -79,4 +79,9 @@ public class StockServiceImpl implements StockService {
         return stockRepository.findByBranchId(branchId).stream()
                 .map(stock -> modelMapper.map(stock, StockDTO.class)).collect(Collectors.toList());
     }
+
+    @Override
+    public long countAll(int branchId) {
+        return stockRepository.countAllByBranchId(branchId);
+    }
 }

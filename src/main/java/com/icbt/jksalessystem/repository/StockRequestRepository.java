@@ -15,4 +15,7 @@ public interface StockRequestRepository extends JpaRepository<StockRequest, Long
 
     @Query("SELECT st FROM StockRequest st WHERE st.fromBranch.id=:branchId OR st.toBranch.id=:branchId")
     List<StockRequest> getBranchStockRequests(Integer branchId);
+
+    @Query(value = "SELECT COUNT(*) FROM stock_request WHERE from_branch_id=:branchId OR to_branch_id=:branchId", nativeQuery = true)
+    long countAllByBranch(int branchId);
 }

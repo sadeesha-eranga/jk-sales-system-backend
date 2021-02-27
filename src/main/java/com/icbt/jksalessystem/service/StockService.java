@@ -20,4 +20,6 @@ public interface StockService {
     List<StockDTO> getAllStocks();
 
     List<StockDTO> getAllStocks(Integer branchId);
+
+    long countAll(int branchId);
 }

@@ -1,5 +1,7 @@
 package com.icbt.jksalessystem.controller;
 
+import com.icbt.jksalessystem.enums.BranchType;
+import com.icbt.jksalessystem.enums.SecurityRole;
 import com.icbt.jksalessystem.exception.CustomAuthenticationException;
 import com.icbt.jksalessystem.model.BranchDTO;
 import com.icbt.jksalessystem.model.BranchFullDTO;
@@ -28,6 +30,8 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.icbt.jksalessystem.enums.SecurityRole.BRANCH_ADMIN;
+import static com.icbt.jksalessystem.enums.SecurityRole.HEAD_OFFICE_ADMIN;
 import static com.icbt.jksalessystem.util.ApplicationConstants.Invalid.INVALID_USERNAME_PASSWORD;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -96,9 +100,9 @@ public class BranchController {
             UserDetails userDetails = branchUserService.loadUserByUsername(reqBody.getUsername());
             String accessToken = JwtUtil.getInstance().generateToken(userDetails);
             String authority = new ArrayList<GrantedAuthority>(userDetails.getAuthorities()).get(0).getAuthority();
+            SecurityRole role = authority.equals(BranchType.HEAD_OFFICE.name()) ? HEAD_OFFICE_ADMIN : BRANCH_ADMIN;
             BranchUserDTO branchUserDTO = branchUserService.searchUser(reqBody.getUsername());
-            System.out.println("here" + branchUserDTO);
-            return ResponseEntity.ok(new LoginResponseDTO(true, branchUserDTO.getUsername(), accessToken, authority,
+            return ResponseEntity.ok(new LoginResponseDTO(true, branchUserDTO.getUsername(), accessToken, role,
                     branchUserDTO.getId(), branchUserDTO.getBranch().getId()));
         } catch (BadCredentialsException e) {
             log.info("Authentication failed: {}", reqBody.getUsername());

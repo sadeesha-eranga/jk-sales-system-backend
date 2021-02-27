@@ -1,5 +1,6 @@
 package com.icbt.jksalessystem.model.response;
 
+import com.icbt.jksalessystem.enums.SecurityRole;
 import lombok.*;
 
 /**
@@ -17,7 +18,7 @@ public class LoginResponseDTO {
     private boolean success;
     private String username;
     private String accessToken;
-    private String role;
+    private SecurityRole role;
     private Integer userId;
     private Integer branchId;
 }

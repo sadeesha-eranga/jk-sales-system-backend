@@ -65,7 +65,7 @@ public class StockRequestServiceImpl implements StockRequestService {
                 .toBranch(toBranch)
                 .build();
         StockRequest savedStockRequest = stockRequestRepository.save(stockRequest);
-        log.info("Stock request saved: {}", savedStockRequest);
+        log.info("Stock request saved");
         return modelMapper.map(savedStockRequest, StockRequestDTO.class);
     }
 
@@ -84,5 +84,17 @@ public class StockRequestServiceImpl implements StockRequestService {
     @Override
     public long countAll(int branchId) {
         return stockRequestRepository.countAllByBranch(branchId);
+    }
+
+    @Override
+    public List<StockRequestDTO> getSent(int branchId) {
+        return stockRequestRepository.getSent(branchId).stream()
+                .map(stockRequest -> modelMapper.map(stockRequest, StockRequestDTO.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<StockRequestDTO> getReceived(int branchId) {
+        return stockRequestRepository.getReceived(branchId).stream()
+                .map(stockRequest -> modelMapper.map(stockRequest, StockRequestDTO.class)).collect(Collectors.toList());
     }
 }

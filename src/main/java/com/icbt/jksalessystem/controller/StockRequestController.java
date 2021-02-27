@@ -53,4 +53,16 @@ public class StockRequestController {
         List<StockRequestDTO> stockRequests = stockRequestService.getAllStockRequests(branchId);
         return ResponseEntity.ok(new StockRequestListResponseDTO(true, stockRequests));
     }
+
+    @GetMapping(value = "/received/{branchId}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<StockRequestListResponseDTO> getAllReceivedStockRequests(@PathVariable int branchId) {
+        List<StockRequestDTO> stockRequests = stockRequestService.getReceived(branchId);
+        return ResponseEntity.ok(new StockRequestListResponseDTO(true, stockRequests));
+    }
+
+    @GetMapping(value = "/sent/{branchId}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<StockRequestListResponseDTO> getAllSentStockRequests(@PathVariable int branchId) {
+        List<StockRequestDTO> stockRequests = stockRequestService.getSent(branchId);
+        return ResponseEntity.ok(new StockRequestListResponseDTO(true, stockRequests));
+    }
 }

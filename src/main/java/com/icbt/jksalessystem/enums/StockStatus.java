@@ -7,5 +7,5 @@ package com.icbt.jksalessystem.enums;
  */
 public enum StockStatus {
 
-    PENDING, ACCEPTED, ON_DELIVERY, RETURNED
+    PENDING, ACCEPTED, ON_DELIVERY, RETURNED, DELIVERED, CANCELLED
 }
